@@ -310,6 +310,13 @@
     <version>1.1.1</version>
 </dependency>
 
+<!-- https://mvnrepository.com/artifact/io.syndesis.server/server-openshift -->
+<dependency>
+    <groupId>io.syndesis.server</groupId>
+    <artifactId>server-openshift</artifactId>
+    <version>1.9.0</version>
+</dependency>
+
 
 
 
@@ -318,7 +325,35 @@
   <build>
     <finalName>Coronoid</finalName>
     <plugins>
-    <plugin>
+     <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <version>3.0</version>
+    <configuration>
+        <source>1.8</source>
+        <target>1.8</target>
+        <fork>true</fork>
+        <meminitial>128m</meminitial>
+        <maxmem>3000m</maxmem>
+        <!-- <compilerArgument>-verbose -bootclasspath ${java.home}\lib\rt.jar</compilerArgument> -->
+    </configuration>
+</plugin>
+<plugin>
+  <groupId>org.eclipse.jkube</groupId>
+  <artifactId>openshift-maven-plugin</artifactId>
+
+  <!-- ... -->
+
+  <executions>
+    <execution>
+      <goals>
+        <goal>resource</goal>
+        <goal>build</goal>
+      </goals>
+    </execution>
+  </executions>
+</plugin>
+    <!-- <plugin>
     <groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-compiler-plugin</artifactId>
     <version>3.0</version>
@@ -330,7 +365,7 @@
         <maxmem>3000m</maxmem>
         <compilerArgument>-verbose -bootclasspath ${java.home}\lib\rt.jar</compilerArgument>
     </configuration>
-</plugin>
+</plugin> -->
 <plugin>
       <artifactId>maven-resources-plugin</artifactId>
       <version>2.5</version>
@@ -341,7 +376,40 @@
         </nonFilteredFileExtensions>
       </configuration>
     </plugin>
-</plugins>  
+</plugins>
+    <pluginManagement>
+    	<plugins>
+    		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+    		<plugin>
+    			<groupId>org.eclipse.m2e</groupId>
+    			<artifactId>lifecycle-mapping</artifactId>
+    			<version>1.0.0</version>
+    			<configuration>
+    				<lifecycleMappingMetadata>
+    					<pluginExecutions>
+    						<pluginExecution>
+    							<pluginExecutionFilter>
+    								<groupId>org.eclipse.jkube</groupId>
+    								<artifactId>
+    									openshift-maven-plugin
+    								</artifactId>
+    								<versionRange>
+    									[1.0.0-alpha-1,)
+    								</versionRange>
+    								<goals>
+    									<goal>resource</goal>
+    								</goals>
+    							</pluginExecutionFilter>
+    							<action>
+    								<ignore></ignore>
+    							</action>
+    						</pluginExecution>
+    					</pluginExecutions>
+    				</lifecycleMappingMetadata>
+    			</configuration>
+    		</plugin>
+    	</plugins>
+    </pluginManagement>
   </build>
   <packaging>war</packaging>
 </project>

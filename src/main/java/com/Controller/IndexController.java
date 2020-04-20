@@ -48,8 +48,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.relique.jdbc.csv.CsvDriver;
-import org.relique.jdbc.csv.CsvResultSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.annotation.Async;
@@ -82,6 +80,7 @@ import com.opencsv.processor.RowProcessor;
 
 
 
+@SuppressWarnings({ "unused", "deprecation" })
 @Async
 @Controller
 public class IndexController {

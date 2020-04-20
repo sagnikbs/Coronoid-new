@@ -133,6 +133,7 @@ public class UserDaoImpl implements UserDao {
 		Session session=sessionFactory.openSession();
 		Query query=session.createQuery("select count(*) from User u where u.username=:username");
 		query.setParameter("username", username);
+		@SuppressWarnings("deprecation")
 		long markernoList=(long) query.getSingleResult();
 		long countRow=0;
         if (markernoList!=0) {

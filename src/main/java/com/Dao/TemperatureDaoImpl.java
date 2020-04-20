@@ -142,6 +142,7 @@ public class TemperatureDaoImpl implements TemperatureDao {
 	public long countRow() {
 		Session session=sessionFactory.openSession();
 		Query query=session.createQuery("select count(*) from Temperature t where t.temp > 98.4");
+		@SuppressWarnings("deprecation")
 		long markernoList=(long) query.getSingleResult();
 		long countRow=0;
         if (markernoList!=0) {
