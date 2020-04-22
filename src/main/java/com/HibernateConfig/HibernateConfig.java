@@ -28,7 +28,7 @@ public class HibernateConfig {
 	{
 		DriverManagerDataSource ds=new DriverManagerDataSource();
 		ds.setDriverClassName("com.mysql.jdbc.Driver");
-		ds.setUrl("jdbc:mysql://localhost/coronoid");
+		ds.setUrl("jdbc:mysql://10.129.22.217:3306/coronoid");
 		ds.setUsername("Sagnikb9");
 		ds.setPassword("Sagnik@62197980");
 		return ds;
