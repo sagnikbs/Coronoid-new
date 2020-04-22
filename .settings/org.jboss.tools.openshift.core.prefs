@@ -1,0 +1,6 @@
+eclipse.preferences.version=1
+org.jboss.tools.openshift.Connection=https\://sagnikb9@api.ca-central-1.starter.openshift-online.com\:6443
+org.jboss.tools.openshift.DeployProject=Coronoid
+org.jboss.tools.openshift.PodPath=
+org.jboss.tools.openshift.Service=coronoid-sb@eap-cd-openshift
+org.jboss.tools.openshift.SourcePath=${workspace_loc\:/Coronoid}
