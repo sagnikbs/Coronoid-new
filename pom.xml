@@ -343,7 +343,7 @@
 
                        <outputDirectory>deployments</outputDirectory>
 
-                       <warName>ROOT</warName>
+                       <warName>Coronoid</warName>
 
                     </configuration>
 
