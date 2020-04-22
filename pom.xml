@@ -338,21 +338,6 @@
         <!-- <compilerArgument>-verbose -bootclasspath ${java.home}\lib\rt.jar</compilerArgument> -->
     </configuration>
 </plugin>
-<plugin>
-  <groupId>org.eclipse.jkube</groupId>
-  <artifactId>openshift-maven-plugin</artifactId>
-
-  <!-- ... -->
-
-  <executions>
-    <execution>
-      <goals>
-        <goal>resource</goal>
-        <goal>build</goal>
-      </goals>
-    </execution>
-  </executions>
-</plugin>
     <!-- <plugin>
     <groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-compiler-plugin</artifactId>
@@ -377,39 +362,45 @@
       </configuration>
     </plugin>
 </plugins>
-    <pluginManagement>
-    	<plugins>
-    		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-    		<plugin>
-    			<groupId>org.eclipse.m2e</groupId>
-    			<artifactId>lifecycle-mapping</artifactId>
-    			<version>1.0.0</version>
-    			<configuration>
-    				<lifecycleMappingMetadata>
-    					<pluginExecutions>
-    						<pluginExecution>
-    							<pluginExecutionFilter>
-    								<groupId>org.eclipse.jkube</groupId>
-    								<artifactId>
-    									openshift-maven-plugin
-    								</artifactId>
-    								<versionRange>
-    									[1.0.0-alpha-1,)
-    								</versionRange>
-    								<goals>
-    									<goal>resource</goal>
-    								</goals>
-    							</pluginExecutionFilter>
-    							<action>
-    								<ignore></ignore>
-    							</action>
-    						</pluginExecution>
-    					</pluginExecutions>
-    				</lifecycleMappingMetadata>
-    			</configuration>
-    		</plugin>
-    	</plugins>
-    </pluginManagement>
   </build>
+
+  <profiles>
+
+    <profile>
+
+        <id>openshift</id>
+
+        <build>
+
+            <finalName>springmvc3</finalName>
+
+            <plugins>
+
+                <plugin>
+
+                    <artifactId>maven-war-plugin</artifactId>
+
+                    <version>2.1.1</version>
+
+                    <configuration>
+
+                       <outputDirectory>deployments</outputDirectory>
+
+                       <warName>ROOT</warName>
+
+                    </configuration>
+
+                </plugin>
+
+            </plugins>
+
+        </build>
+
+    </profile>
+
+</profiles>
+  
+  
+  
   <packaging>war</packaging>
 </project>
