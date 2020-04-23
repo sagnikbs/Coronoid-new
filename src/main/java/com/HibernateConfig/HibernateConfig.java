@@ -28,9 +28,14 @@ public class HibernateConfig {
 	{
 		DriverManagerDataSource ds=new DriverManagerDataSource();
 		ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		ds.setUrl("jdbc:mysql://mysql-coronoid-sb.apps.ca-central-1.starter.openshift-online.com:3306/coronoid");
-		ds.setUsername("Sagnikb9");
-		ds.setPassword("HjoCjjQxucy638OR");
+		ds.setUrl("jdbc:mysql://10.129.20.17:3306/coronoid");
+		
+		  ds.setUsername("Sagnikb9"); 
+		  ds.setPassword("HjoCjjQxucy638OR");
+		 
+		/*
+		 * ds.setUsername("root"); ds.setPassword("");
+		 */
 		return ds;
 	}
 	
