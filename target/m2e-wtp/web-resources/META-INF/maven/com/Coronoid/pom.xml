@@ -216,15 +216,6 @@
 </dependency>
 
 
-
-
-<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
-<dependency>
-    <groupId>commons-fileupload</groupId>
-    <artifactId>commons-fileupload</artifactId>
-    <version>1.3.3</version>
-</dependency>
-
 <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
 <dependency>
     <groupId>commons-io</groupId>
@@ -276,45 +267,11 @@
 <!-- Backend -->
 
 
-  
-
-<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
-<dependency>
-    <groupId>org.springframework</groupId>
-    <artifactId>spring-jdbc</artifactId>
-    <version>4.3.9.RELEASE</version>
-</dependency>
-
-
-
-
 <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
 <dependency>
     <groupId>commons-fileupload</groupId>
     <artifactId>commons-fileupload</artifactId>
     <version>1.3.3</version>
-</dependency>
-
-<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
-<dependency>
-    <groupId>commons-io</groupId>
-    <artifactId>commons-io</artifactId>
-    <version>2.6</version>
-</dependency>
-
-
-<!-- https://mvnrepository.com/artifact/javax.activation/activation -->
-<dependency>
-    <groupId>javax.activation</groupId>
-    <artifactId>activation</artifactId>
-    <version>1.1.1</version>
-</dependency>
-
-<!-- https://mvnrepository.com/artifact/io.syndesis.server/server-openshift -->
-<dependency>
-    <groupId>io.syndesis.server</groupId>
-    <artifactId>server-openshift</artifactId>
-    <version>1.9.0</version>
 </dependency>
 
 
@@ -337,21 +294,6 @@
         <maxmem>3000m</maxmem>
         <!-- <compilerArgument>-verbose -bootclasspath ${java.home}\lib\rt.jar</compilerArgument> -->
     </configuration>
-</plugin>
-<plugin>
-  <groupId>org.eclipse.jkube</groupId>
-  <artifactId>openshift-maven-plugin</artifactId>
-
-  <!-- ... -->
-
-  <executions>
-    <execution>
-      <goals>
-        <goal>resource</goal>
-        <goal>build</goal>
-      </goals>
-    </execution>
-  </executions>
 </plugin>
     <!-- <plugin>
     <groupId>org.apache.maven.plugins</groupId>
@@ -377,39 +319,45 @@
       </configuration>
     </plugin>
 </plugins>
-    <pluginManagement>
-    	<plugins>
-    		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-    		<plugin>
-    			<groupId>org.eclipse.m2e</groupId>
-    			<artifactId>lifecycle-mapping</artifactId>
-    			<version>1.0.0</version>
-    			<configuration>
-    				<lifecycleMappingMetadata>
-    					<pluginExecutions>
-    						<pluginExecution>
-    							<pluginExecutionFilter>
-    								<groupId>org.eclipse.jkube</groupId>
-    								<artifactId>
-    									openshift-maven-plugin
-    								</artifactId>
-    								<versionRange>
-    									[1.0.0-alpha-1,)
-    								</versionRange>
-    								<goals>
-    									<goal>resource</goal>
-    								</goals>
-    							</pluginExecutionFilter>
-    							<action>
-    								<ignore></ignore>
-    							</action>
-    						</pluginExecution>
-    					</pluginExecutions>
-    				</lifecycleMappingMetadata>
-    			</configuration>
-    		</plugin>
-    	</plugins>
-    </pluginManagement>
   </build>
+
+  <!-- <profiles>
+
+    <profile>
+
+        <id>openshift</id>
+
+        <build>
+
+            <finalName>springmvc3</finalName>
+
+            <plugins>
+
+                <plugin>
+
+                    <artifactId>maven-war-plugin</artifactId>
+
+                    <version>2.1.1</version>
+
+                    <configuration>
+
+                       <outputDirectory>deployments</outputDirectory>
+
+                       <warName>Coronoid</warName>
+
+                    </configuration>
+
+                </plugin>
+
+            </plugins>
+
+        </build>
+
+    </profile>
+
+</profiles> -->
+  
+  
+  
   <packaging>war</packaging>
 </project>
