@@ -291,7 +291,7 @@ public class IndexController {
 		      String sender = "application.coronoid@gmail.com"; 
 		  
 		      // using host as localhost 
-		      String host = "jboss-webserver31-tomcat-coronoid-sb-new.apps.ca-central-1.starter.openshift-online.com"; 
+		      //String host = "jboss-webserver31-tomcat-coronoid-sb-new.apps.ca-central-1.starter.openshift-online.com"; 
 		      String user1 = "application.coronoid@gmail.com";
 		      String pass1 = "Sagnik@7980";
 		      // Getting system properties 
@@ -299,10 +299,12 @@ public class IndexController {
 		  
 		      // Setting up mail server 
 		      properties.setProperty("mail.transport.protocol", "smtp");
-		      properties.setProperty("mail.smtp.port", "587");
-		      properties.setProperty("mail.smtp.host", host);
+		      properties.setProperty("mail.smtp.socketFactory.port", "465");
+		      properties.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
+		      properties.setProperty("mail.smtp.host", "smtp.gmail.com");
 		      properties.put("mail.smtp.auth", "true");
-		      properties.put("mail.smtp.starttls.enable", "true");
+		      //properties.put("mail.smtp.starttls.enable", "true");
+		      properties.put("mail.smtp.port", "465");
 		      
 		      //properties.put("mail.smtp.port", "8081");
 		  
@@ -413,7 +415,7 @@ public class IndexController {
 	      String sender = "application.coronoid@gmail.com"; 
 	  
 	      // using host as localhost 
-	      String host = "jboss-webserver31-tomcat-coronoid-sb-new.apps.ca-central-1.starter.openshift-online.com"; 
+	      //String host = "jboss-webserver31-tomcat-coronoid-sb-new.apps.ca-central-1.starter.openshift-online.com"; 
 	      String user = "application.coronoid@gmail.com";
 	      String pass = "Sagnik@7980";
 	      // Getting system properties 
@@ -421,10 +423,12 @@ public class IndexController {
 	  
 	      // Setting up mail server 
 	      properties.setProperty("mail.transport.protocol", "smtp");
-	      properties.setProperty("mail.smtp.port", "587");
-	      properties.setProperty("mail.smtp.host", host);
+	      properties.setProperty("mail.smtp.socketFactory.port", "465");
+	      properties.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
+	      properties.setProperty("mail.smtp.host", "smtp.gmail.com");
 	      properties.put("mail.smtp.auth", "true");
-	      properties.put("mail.smtp.starttls.enable", "true");
+	      //properties.put("mail.smtp.starttls.enable", "true");
+	      properties.put("mail.smtp.port", "465");
 	      
 	      //properties.put("mail.smtp.port", "8081");
 	  
