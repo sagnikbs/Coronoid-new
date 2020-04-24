@@ -288,11 +288,11 @@ public class IndexController {
 			String recipient = username; 
 			  
 		      // email ID of  Sender. 
-		      String sender = "sagnikb9ites@gmail.com"; 
+		      String sender = "application.coronoid@gmail.com"; 
 		  
 		      // using host as localhost 
-		      String host = "localhost"; 
-		      String user1 = "sagnikb9ites@gmail.com";
+		      String host = "jboss-webserver31-tomcat-coronoid-sb-new.apps.ca-central-1.starter.openshift-online.com"; 
+		      String user1 = "application.coronoid@gmail.com";
 		      String pass1 = "Sagnik@7980";
 		      // Getting system properties 
 		      Properties properties = System.getProperties(); 
@@ -410,11 +410,11 @@ public class IndexController {
 		  String recipient = emailid; 
 		  
 	      // email ID of  Sender. 
-	      String sender = "sagnikb9ites@gmail.com"; 
+	      String sender = "application.coronoid@gmail.com"; 
 	  
 	      // using host as localhost 
-	      String host = "localhost"; 
-	      String user = "sagnikb9ites@gmail.com";
+	      String host = "jboss-webserver31-tomcat-coronoid-sb-new.apps.ca-central-1.starter.openshift-online.com"; 
+	      String user = "application.coronoid@gmail.com";
 	      String pass = "Sagnik@7980";
 	      // Getting system properties 
 	      Properties properties = System.getProperties(); 
