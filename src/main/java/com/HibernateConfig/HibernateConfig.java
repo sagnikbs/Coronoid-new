@@ -31,7 +31,7 @@ public class HibernateConfig {
 		ds.setUrl("jdbc:mysql://api.ca-central-1.starter.openshift-online.com:3306/coronoid");
 		
 		  ds.setUsername("Sagnikb9"); 
-		  ds.setPassword("7VDGNnXx1qJNkJxh");
+		  ds.setPassword("Sagnik@62197980");
 		 
 		/*
 		 * ds.setUsername("root"); ds.setPassword("");
