@@ -168,7 +168,13 @@ public class TemperatureController {
 			    	String markerno=lengthnew;
 			    	
 			    	//File file = new File("D:\\eclipse-workspace-2019\\Coronoid\\src\\main\\webapp\\tracker\\tracker.csv"); 	    
-			    	File file = new File("https://jboss-webserver31-tomcat-coronoid-sb-new.apps.ca-central-1.starter.openshift-online.com/Coronoid/tracker.csv".toString());
+			    	//File file = new File("https://jboss-webserver31-tomcat-coronoid-sb-new.apps.ca-central-1.starter.openshift-online.com/Coronoid/tracker.csv".toString());
+			    	
+			    	URL url = new URL("https://jboss-webserver31-tomcat-coronoid-sb-new.apps.ca-central-1.starter.openshift-online.com/Coronoid/tracker.csv");
+			        BufferedReader read = new BufferedReader(new InputStreamReader(url.openStream()));
+						
+			    	File file = new File(read.toString()); 
+			    	
 			    	FileWriter outputfile = new FileWriter(file,true); 
 			    	  
 			        // create CSVWriter object filewriter object as parameter 
@@ -210,8 +216,12 @@ public class TemperatureController {
 					String markerno=temperature.getMarkerno();
 					
                     //File file = new File("D:\\eclipse-workspace-2019\\Coronoid\\src\\main\\webapp\\tracker\\tracker.csv"); 	    
-					File file = new File("https://jboss-webserver31-tomcat-coronoid-sb-new.apps.ca-central-1.starter.openshift-online.com/Coronoid/tracker.csv".toString());
-			    	FileWriter outputfile = new FileWriter(file,true); 
+					//File file = new File("https://jboss-webserver31-tomcat-coronoid-sb-new.apps.ca-central-1.starter.openshift-online.com/Coronoid/tracker.csv".toString());
+					URL url = new URL("https://jboss-webserver31-tomcat-coronoid-sb-new.apps.ca-central-1.starter.openshift-online.com/Coronoid/tracker.csv");
+			        BufferedReader read = new BufferedReader(new InputStreamReader(url.openStream()));
+						
+			    	File file = new File(read.toString()); 
+					FileWriter outputfile = new FileWriter(file,true); 
 			    	  
 			        // create CSVWriter object filewriter object as parameter 
 			        CSVWriter writer = new CSVWriter(outputfile); 
