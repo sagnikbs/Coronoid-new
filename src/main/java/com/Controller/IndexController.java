@@ -300,7 +300,7 @@ public class IndexController {
 		      // Setting up mail server 
 		      properties.setProperty("mail.transport.protocol", "smtp");
 		      properties.setProperty("mail.smtp.port", "587");
-		      properties.setProperty("mail.smtp.host", "smtp.gmail.com");
+		      properties.setProperty("mail.smtp.host", host);
 		      properties.put("mail.smtp.auth", "true");
 		      properties.put("mail.smtp.starttls.enable", "true");
 		      
@@ -422,7 +422,7 @@ public class IndexController {
 	      // Setting up mail server 
 	      properties.setProperty("mail.transport.protocol", "smtp");
 	      properties.setProperty("mail.smtp.port", "587");
-	      properties.setProperty("mail.smtp.host", "smtp.gmail.com");
+	      properties.setProperty("mail.smtp.host", host);
 	      properties.put("mail.smtp.auth", "true");
 	      properties.put("mail.smtp.starttls.enable", "true");
 	      
