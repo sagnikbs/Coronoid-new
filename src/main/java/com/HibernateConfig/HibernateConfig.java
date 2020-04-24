@@ -28,10 +28,10 @@ public class HibernateConfig {
 	{
 		DriverManagerDataSource ds=new DriverManagerDataSource();
 		ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		ds.setUrl("jdbc:mysql://api.ca-central-1.starter.openshift-online.com:3306/coronoid");
+		ds.setUrl("jdbc:mysql://${env.OPENSHIFT_MYSQL_DB_HOST}:${env.OPENSHIFT_MYSQL_DB_PORT}/coronoid");
 		
-		  ds.setUsername("Sagnikb9"); 
-		  ds.setPassword("Sagnik@62197980");
+		  ds.setUsername("${env.OPENSHIFT_MYSQL_DB_USERNAME}"); 
+		  ds.setPassword("${env.OPENSHIFT_MYSQL_DB_PASSWORD}");
 		 
 		/*
 		 * ds.setUsername("root"); ds.setPassword("");
