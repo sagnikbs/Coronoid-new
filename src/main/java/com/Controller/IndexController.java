@@ -651,7 +651,7 @@ public class IndexController {
 		    	String markerno=temperatureDao.getIdByEmail((String) session.getAttribute("username"));
 		    	
 					
-		    	File file = new File("D:\\eclipse-workspace-2019\\Coronoid\\src\\main\\webapp\\tracker\\tracker.csv"); 	    
+		    	File file = new File("https://jboss-webserver31-tomcat-coronoid-sb-new.apps.ca-central-1.starter.openshift-online.com/Coronoid/tracker.csv"); 	    
 		    	
 		    	FileWriter outputfile = new FileWriter(file,true); 
 		    	  
