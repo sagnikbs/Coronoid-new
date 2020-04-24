@@ -28,10 +28,10 @@ public class HibernateConfig {
 	{
 		DriverManagerDataSource ds=new DriverManagerDataSource();
 		ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		ds.setUrl("jdbc:mysql://${env.MYSQL_HOST}:${env.MYSQL_PORT}/${env.MYSQL_DATABASE}");
+		ds.setUrl("jdbc:mysql://172.30.197.71:3306/coronoid");
 		
-		  ds.setUsername("${env.MYSQL_USER}"); 
-		  ds.setPassword("${env.MYSQL_PASSWORD}");
+		  ds.setUsername("Sagnikb9"); 
+		  ds.setPassword("Sagnik@62197980");
 		 
 		/*
 		 * ds.setUsername("root"); ds.setPassword("");
