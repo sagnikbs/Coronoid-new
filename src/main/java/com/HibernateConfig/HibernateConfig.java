@@ -28,7 +28,7 @@ public class HibernateConfig {
 	{
 		DriverManagerDataSource ds=new DriverManagerDataSource();
 		ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		ds.setUrl("jdbc:mysql://${env.MYSQL_HOST}:${env.MYSQL_PORT}/${env.MYSQL_DATABASE}");
+		ds.setUrl("jdbc:mysql://localhost:50946/${env.MYSQL_DATABASE}");
 		
 		  ds.setUsername("${env.MYSQL_USER}"); 
 		  ds.setPassword("${env.MYSQL_PASSWORD}");
@@ -37,6 +37,8 @@ public class HibernateConfig {
 		 * ds.setUsername("root"); ds.setPassword("");
 		 */
 		return ds;
+		
+		
 	}
 	
 	@Bean(name="sessionFactory")
