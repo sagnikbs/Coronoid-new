@@ -4,7 +4,7 @@
 <jsp:include page="adminSidebar.jsp"></jsp:include>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <center>  
-       <h2><span style="color:#a442f4">Affected Area Map</span></h2>
+	<h2><span style="color:#a442f4">Affected Area Map</span></h2>
 </center>
 
 
