@@ -1,16 +1,29 @@
 package com.Controller;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.Reader;
+import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
+import java.nio.file.FileSystem;
+import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -18,6 +31,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -35,8 +49,13 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.persistence.Inheritance;
 import javax.persistence.TransactionRequiredException;
+import javax.persistence.criteria.Root;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.tools.JavaFileManager.Location;
 
 import org.apache.commons.validator.EmailValidator;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -51,6 +70,9 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.WritableResource;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor;
@@ -62,17 +84,23 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.ContextLoaderListener;
+import org.springframework.web.context.support.ServletContextResource;
 
 import com.Dao.TemperatureDao;
 import com.Dao.UserDao;
 import com.Model.Temperature;
 import com.Model.User;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
 import com.opencsv.CSVWriter;
 import com.opencsv.processor.RowProcessor;
 
@@ -652,27 +680,68 @@ public class IndexController {
 		    	String temp1=temperatureDao.getTempByEmail(session.getAttribute("username").toString());
 		    	String markerno=temperatureDao.getIdByEmail((String) session.getAttribute("username"));
 		    	
-		    	URL url = new URL("https://jboss-webserver31-tomcat-coronoid-sb-new.apps.ca-central-1.starter.openshift-online.com/Coronoid/tracker.csv");
-		        BufferedReader read = new BufferedReader(new InputStreamReader(url.openStream()));
-					
-		    	File file = new File(read.toString()); 	    
 		    	
+		    	//URL url = new URL("https://jboss-webserver31-tomcat-coronoid-sb-new.apps.ca-central-1.starter.openshift-online.com/Coronoid/tracker.csv");
+		        
+		    	
+				
+				File file=ResourceUtils.getFile("tracker.csv");
+				
+				System.out.println("a->"+file.getAbsolutePath());
+				System.out.println("c->"+file.getCanonicalPath());
+				
+				
+				
 		    	FileWriter outputfile = new FileWriter(file,true); 
 		    	  
 		        // create CSVWriter object filewriter object as parameter 
 		        CSVWriter writer = new CSVWriter(outputfile); 
-		  
-				
-		        String[] data1 = { email, name, phone, startPosition.substring(startPosition.indexOf("[")+1,startPosition.indexOf("]")), clusterPosition, currentPosition1, temp1.substring(temp1.indexOf("[")+1,temp1.indexOf("]"))}; 
-		        writer.writeNext(data1); 
+		        
+		        
+		        
+		        FileReader filereader = new FileReader(file); 
+		        CSVReader reader=new CSVReaderBuilder(filereader).build();
+		        List<String[]> allData = reader.readAll();
+		        
+		        if(allData.isEmpty())
+		        {
+		        	String[] header= {"EMAIL", "NAME", "PHONE", "STARTPOSITION", "CLUSTERPOSITION", "CURRENTPOSITION", "TEMPERATURE"};		        	
+		            String[] data1={email, name, phone, startPosition.substring(startPosition.indexOf("[")+1,startPosition.indexOf("]")), clusterPosition, currentPosition1, temp1.substring(temp1.indexOf("[")+1,temp1.indexOf("]"))};
+		            
+		        	List<String[]> list = new ArrayList<String[]>();		        	
+		        	list.add(header);
+		        	list.add(data1);
+		        	
+			        writer.writeAll(list);
+			        
+			        //URL url=new URL("http://localhost:8080/Coronoid/"+file);
+			        
+			        System.out.println("CSV Header+Data");
+		        }
+		        else
+		        {
+		        	String[] data1 = { email, name, phone, startPosition.substring(startPosition.indexOf("[")+1,startPosition.indexOf("]")), clusterPosition, currentPosition1, temp1.substring(temp1.indexOf("[")+1,temp1.indexOf("]"))}; 
+			        writer.writeNext(data1); 
+			        
+			        //URL url=new URL("http://localhost:8080/Coronoid/"+writer);
+			        
+			        //System.out.println("URL->"+url);
+			        
+			        System.out.println("CSV Only Data");
+		        }
+		        
 		        
 		  
 		        // closing writer connection 
-		        writer.close(); 
+		        writer.close();
+		        
+		        System.out.println("CSV success");
 	        }
 	        catch(Exception e)
 	        {
 	        	e.printStackTrace();
+	        	System.out.println("CSV error");
+	        	
 	        }
 		    
 		    
@@ -694,8 +763,52 @@ public class IndexController {
     }
 
 
-
-	
+	@RequestMapping(value="/trackercsv",method= {RequestMethod.GET,RequestMethod.POST})
+    public String trackercsv(Model m,HttpSession session, HttpServletResponse response) throws MalformedURLException
+    {
+        
+		if(session.getAttribute("username") != null)
+		{ 
+			File file=null;
+			//URL url = new URL("http://localhost:8080/Coronoid/trackercsv");
+			try
+			{
+				file=ResourceUtils.getFile("tracker.csv");
+				InputStream fis = new FileInputStream(file);
+				String mimeType = file.getAbsolutePath();
+				response.setContentType(mimeType != null? mimeType:"application/octet-stream");
+				response.setContentLength((int) file.length());
+				response.setHeader("Content-Disposition", "attachment; filename=\"" + file + "\"");
+				
+				OutputStream os = new FileOutputStream(file);
+				byte[] bufferData = new byte[1024];
+				int read=0;
+				while((read = fis.read(bufferData))!= -1){
+					os.write(bufferData, 0, read);
+				}
+				os.flush();
+				os.close();
+				fis.close();
+				
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+				System.out.println("File not found");
+			}
+			
+			
+			
+			return "dashboard";
+			
+		}
+		else
+		{ 
+			//File file1=new File("ooo.csv");
+			return "pleaselogin";
+		}
+    }	
+			
 
 	
 
