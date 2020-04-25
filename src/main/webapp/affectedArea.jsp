@@ -215,7 +215,8 @@
         
     	  <%=allCurrentPosition%>
       ]
- </script>  
- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdI1PF2CKuAwNItkEiUj4H3wofQelimOE&callback=initMap"></script>
+ </script>
+		
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdI1PF2CKuAwNItkEiUj4H3wofQelimOE&callback=initMap"></script>
        
 <jsp:include page="adminFooter.jsp"></jsp:include>
