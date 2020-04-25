@@ -52,7 +52,7 @@
   %>
  
   
-<script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>                       
+                      
   <div id="map" style="width: 100%; height: 500px;"></div>
 <!-- Replace the value of the key parameter with your own API key. -->
 <script async defer
