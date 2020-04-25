@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -19,6 +20,7 @@ import java.net.URL;
 import java.net.UnknownHostException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -41,6 +43,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,6 +53,8 @@ import com.Model.Temperature;
 import com.Model.User;
 import com.codoid.products.fillo.Connection;
 import com.codoid.products.fillo.Fillo;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
 import com.opencsv.CSVWriter;
 import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
@@ -57,7 +62,7 @@ import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 
-
+@SuppressWarnings({ "unused", "deprecation" })
 @Async
 @Controller
 public class TemperatureController {
@@ -170,19 +175,42 @@ public class TemperatureController {
 			    	//File file = new File("D:\\eclipse-workspace-2019\\Coronoid\\src\\main\\webapp\\tracker\\tracker.csv"); 	    
 			    	//File file = new File("https://jboss-webserver31-tomcat-coronoid-sb-new.apps.ca-central-1.starter.openshift-online.com/Coronoid/tracker.csv".toString());
 			    	
-			    	URL url = new URL("https://jboss-webserver31-tomcat-coronoid-sb-new.apps.ca-central-1.starter.openshift-online.com/Coronoid/tracker.csv");
-			        BufferedReader read = new BufferedReader(new InputStreamReader(url.openStream()));
-						
-			    	File file = new File(read.toString()); 
+			    	File file=ResourceUtils.getFile("tracker.csv");
+					
+					System.out.println("a->"+file.getAbsolutePath());
+					System.out.println("c->"+file.getCanonicalPath());
 			    	
 			    	FileWriter outputfile = new FileWriter(file,true); 
 			    	  
 			        // create CSVWriter object filewriter object as parameter 
 			        CSVWriter writer = new CSVWriter(outputfile); 
 			  
+			        FileReader filereader = new FileReader(file); 
+			        CSVReader reader=new CSVReaderBuilder(filereader).build();
+			        List<String[]> allData = reader.readAll();
+			        
+			        if(allData.isEmpty())
+			        {
+			        	String[] header= {"EMAIL", "NAME", "PHONE", "STARTPOSITION", "CLUSTERPOSITION", "CURRENTPOSITION", "TEMPERATURE"};
+			        	String[] data1 = { email, name, phone, startPosition, clusterPosition, currentPosition, temp1}; 
+			        	
+			        	List<String[]> list = new ArrayList<String[]>();		        	
+			        	list.add(header);
+			        	list.add(data1);
+			        	
+				        writer.writeAll(list);
+				        System.out.println("CSV Header+Data");
+			        }
+			        else
+			        {
+			        	String[] data1 = { email, name, phone, startPosition, clusterPosition, currentPosition, temp1}; 
+				        writer.writeNext(data1); 
+				        
+				        System.out.println("CSV Only Data");
+			        }
+			        
 					
-			        String[] data1 = { email, name, phone, startPosition, clusterPosition, currentPosition, temp1}; 
-			        writer.writeNext(data1); 
+			        
 			        
 			  
 			        // closing writer connection 
@@ -217,18 +245,43 @@ public class TemperatureController {
 					
                     //File file = new File("D:\\eclipse-workspace-2019\\Coronoid\\src\\main\\webapp\\tracker\\tracker.csv"); 	    
 					//File file = new File("https://jboss-webserver31-tomcat-coronoid-sb-new.apps.ca-central-1.starter.openshift-online.com/Coronoid/tracker.csv".toString());
-					URL url = new URL("https://jboss-webserver31-tomcat-coronoid-sb-new.apps.ca-central-1.starter.openshift-online.com/Coronoid/tracker.csv");
-			        BufferedReader read = new BufferedReader(new InputStreamReader(url.openStream()));
+					File file=ResourceUtils.getFile("tracker.csv");
+					
+					System.out.println("a->"+file.getAbsolutePath());
+					System.out.println("c->"+file.getCanonicalPath());
 						
-			    	File file = new File(read.toString()); 
+			    	
 					FileWriter outputfile = new FileWriter(file,true); 
 			    	  
 			        // create CSVWriter object filewriter object as parameter 
 			        CSVWriter writer = new CSVWriter(outputfile); 
 			  
+			        FileReader filereader = new FileReader(file); 
+			        CSVReader reader=new CSVReaderBuilder(filereader).build();
+			        List<String[]> allData = reader.readAll();
+			        
+			        if(allData.isEmpty())
+			        {
+			        	String[] header= {"EMAIL", "NAME", "PHONE", "STARTPOSITION", "CLUSTERPOSITION", "CURRENTPOSITION", "TEMPERATURE"};
+			        	String[] data1 = { email, name, phone, startPosition2, clusterPosition, currentPosition, temp1};
+			        	
+			        	List<String[]> list = new ArrayList<String[]>();		        	
+			        	list.add(header);
+			        	list.add(data1);
+			        	
+			        	writer.writeAll(list);
+				        
+				        System.out.println("CSV Header+Data");
+			        }
+			        else
+			        {
+			        	String[] data1 = { email, name, phone, startPosition2, clusterPosition, currentPosition, temp1}; 
+				        writer.writeNext(data1); 
+				        
+				        System.out.println("CSV Only Data");
+			        }
 					
-			        String[] data1 = { email, name, phone, startPosition2, clusterPosition, currentPosition, temp1}; 
-			        writer.writeNext(data1); 
+			        
 			        
 			  
 			        // closing writer connection 
